@@ -14,7 +14,6 @@ const twitterAuthStrategy = {
 
     const user = await userService.getUserById(id);
     if (user) {
-      tweetService.saveTweets(user);
       await done(null, user);
     } else {
       await userService.addUser({ id, displayName, profilePic, token, tokenSecret });
