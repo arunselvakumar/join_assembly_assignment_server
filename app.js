@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const http = require('http');
 const cors = require('cors');
 const logger = require('morgan');
 const express = require('express');
@@ -36,3 +37,10 @@ app.use('/api/users', userRouter);
 app.use('/api/tweets', tweetRouter);
 
 module.exports = app;
+
+const port = process.env.PORT || '3000';
+app.set('port', port);
+
+const server = http.createServer(app);
+
+server.listen(port);
