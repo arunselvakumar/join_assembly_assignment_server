@@ -10,7 +10,7 @@ const passportConfig = passport.authenticate('twitter', {
 router.get('/', passport.authenticate('twitter'));
 
 router.get('/callback', passportConfig, async (req, res) => {
-  await res.redirect(process.env['OAUTH_CLIENT_REDIRECT_URL']);
+  await res.redirect(process.env['OAUTH_CLIENT_REDIRECT_URL'] + `?redirectId=${req.user.id}`);
 });
 
 module.exports = router;

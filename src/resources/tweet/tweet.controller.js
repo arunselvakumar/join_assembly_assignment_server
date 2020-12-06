@@ -48,6 +48,12 @@ const tweetController = {
       res.status(httpStatusCodes.INTERNAL_SERVER_ERROR);
     }
   },
+
+  getTweetsByTag: async (req, res) => {
+    const tag = req.query['q'];
+    const tweetEntities = await tweetService.getTweetsByTag(tag);
+    res.status(httpStatusCodes.OK).json(tweetEntities);
+  },
 };
 
 module.exports = tweetController;

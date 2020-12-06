@@ -39,6 +39,10 @@ const tweetService = {
   getTweetsByUserId: async (userId) => {
     return await tweetEntity.find({ profileId: userId });
   },
+
+  getTweetsByTag: async (hashTag) => {
+    return await tweetEntity.find({ hashtags: hashTag });
+  },
 };
 
 module.exports = tweetService;
