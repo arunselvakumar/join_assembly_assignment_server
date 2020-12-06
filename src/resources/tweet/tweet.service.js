@@ -7,6 +7,7 @@ const mapTweetsToEntity = (data, user) => {
       profileId: user.id,
       id: tweet.id,
       user: tweet.user,
+      urls: tweet.entities.urls?.map((url) => url.expanded_url),
       hashtags: tweet.entities.hashtags?.map((hashtag) => hashtag.text),
       text: tweet.text,
     };
@@ -33,6 +34,10 @@ const tweetService = {
         await tweetEntity.insertMany(tweetsToBeAdded);
       }
     });
+  },
+
+  getTweetsByUserId: async (userId) => {
+    return await tweetEntity.find({ profileId: userId });
   },
 };
 

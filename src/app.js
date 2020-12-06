@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 const TwitterStrategy = require('passport-twitter').Strategy;
 
 const authRouter = require('./resources/auth/auth.route');
+const tweetRouter = require('./resources/tweet/tweet.route');
 const twitterAuthStrategy = require('./resources/auth/strategies/twitter');
 
 const app = express();
@@ -25,8 +26,9 @@ app.use(passport.session());
 passport.use(new TwitterStrategy(twitterAuthStrategy.getConfig, twitterAuthStrategy.authorize));
 
 const mongodbUri = `mongodb+srv://root:${process.env['MONGODB_PASSWORD']}@${process.env['MONGODB_HOSTED_URL']}/${process.env['MONGODB_DBNAME']}?retryWrites=true&w=majority`;
-mongoose.connect(mongodbUri, { useNewUrlParser: true });
+mongoose.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use('/auth', authRouter);
+app.use('/api/tweets', tweetRouter);
 
 module.exports = app;
